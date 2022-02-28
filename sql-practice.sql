@@ -1,3 +1,73 @@
+Fri Feb 25 2022
+# 175
+SELECT tb1.FirstName, tb1.LastName, tb2.City, tb2.State
+FROM Person tb1 LEFT JOIN Address tb2 ON tb1.personId = tb2.personId;
+
+# 176
+SELECT Salary AS SecondHighestSalary
+FROM Employee
+WHERE Salary < (SELECT max(Salary) FROM Employee);
+
+# 177
+CREATE FUNCTION getNthHighestSalary(N INT) RETURNS INT
+BEGIN
+SET N = N-1 ;
+    RETURN(SELECT DISTINCT Salary 
+           FROM Employee
+           ORDER BY Salary DESC
+           LIMIT 1 OFFSET N)
+END;
+
+# 603
+SELECT tb1.seat_id
+FROM cinema tb1 JOIN cinema tb2 ON abs(tb1.seat_id - tb2.seat_id = 1) 
+WHERE tb1.free = 1 AND tb2.free = 2
+ORDER BY tb1.seat_id DESC;
+
+# 180
+SELECT DISTINCT tb1.Num AS ConsecutiveNums
+FROM Logs tb1, Logs tb2, Logs tb3
+WHERE tb1.Id = tb2.Id - 1 AND tb2.Id = tb3.Id - 1
+AND tb1.Num = tb2.Num AND tb2.Num = tb3.Num
+
+# 184
+SELECT tb1.Name AS Department, tb1.Name AS Employee, tb1.Salary AS Salary
+FROM Employee AS tb1 JOIN Department AS tb2 ON tb1.department_id = tb2.Id
+WHERE tb1.Salary = (SELECT MAX(SALARY) FROM tb1 WHERE tb1.department_id = tb2.Id)
+
+
+Mon Feb 28 2022
+# 185
+SELECT tb2.Name AS Department, tb1.Name AS Employee, tb1.Salary AS Salary
+FROM Employee tb1 INNER JOIN Department tb2 ON tb1.department_id = tb2.department_id
+WHERE (SELECT COUNT(DISTINCT salary 
+       FROM Employee tb3
+       WHERE tb3.department_id = tb2_id AND
+       tb3.Salary > tb1.Salary)
+       ) < 3
+ORDER BY Salary DESC;
+
+# 595
+SELECT name, population, area
+FROM World
+WHERE area > 3000000 OR area > 25000000;
+
+# 196
+DELETE tb2
+SELECT * 
+FROM Person tb1, Person tb2
+WHERE tb1.Email = tb2.Email
+AND tb1.Id < tb2.Id
+
+# 626
+SELECT (CASE WHEN mod(seat.id,2) <> 0 AND seat.id = (SELECT COUNT(*) FROM seat) THEN seat.id
+        WHEN mod(seat.id,2) = 1 THEN seat.id + 1
+        ELSE seat.id - 1
+END) AS id, student
+FROM seat
+ORDER BY id;
+
+
 Jan 28 Fri 2022
 
 # 569 Median Employee Salary "In general, the median's frequency should be equal or greater than the asbolute difference
