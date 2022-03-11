@@ -1,1 +1,1 @@
-# Leetcode Practice Record
+# SQL Notes
