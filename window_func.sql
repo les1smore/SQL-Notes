@@ -84,4 +84,4 @@ FROM emp;
 9. "Ntile - sort te rows within the partition into a certain number of groups (percentile, quartile)"
 SELECT *,
     NTILE(4) OVER (ORDER BY salary) AS 'quartile'
-FROM emp; 
+FROM emp;  
